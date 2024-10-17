@@ -19,6 +19,8 @@ import time
 
 from datetime import datetime
 
+import os
+
 
 CONFIGS_PATH = 'configs/'
 DATA_RAW_PATH = 'data/raw/'
@@ -52,6 +54,24 @@ def get_historic(pair, interval=1_440, since=None):
     
     return df
 
+def concatenate_data(folder_path):
+    file_names = os.listdir(folder_path)
+
+    all_data = pd.DataFrame()
+
+    for file_name in file_names:
+        if file_name == 'all_data.pkl':
+            continue
+        
+        data = pd.read_csv(folder_path + file_name)
+        all_data = pd.concat([all_data, data], axis=0)
+        
+    all_data.drop_duplicates(subset='time', keep='first', inplace=True)
+    all_data.reset_index(drop=True, inplace=True)
+    all_data['time'] = pd.to_datetime(all_data['time'])
+    
+    all_data.to_pickle(folder_path + 'all_data.pkl')
+
 
 if __name__ == '__main__':
     pair_btc_usd = 'XXBTZUSD'
@@ -62,5 +82,10 @@ if __name__ == '__main__':
         str(datetime.now().hour) + ':' + str(datetime.now().minute) + ':' + str(datetime.now().second) + '.csv'
     
     historic_data.to_csv(DATA_RAW_PATH + 'historic_btc_15min_interval/' +  output_file_name, index=False)
-    
+
     print('Historic data saved successfully!')
+    
+    folder_path = DATA_RAW_PATH + 'historic_btc_15min_interval/'    
+    concatenate_data(folder_path)
+    
+    print('Data concatenated successfully!')
