@@ -17,6 +17,8 @@ import krakenex
 import pandas as pd
 import time
 
+from datetime import datetime
+
 
 CONFIGS_PATH = 'configs/'
 DATA_RAW_PATH = 'data/raw/'
@@ -33,6 +35,8 @@ def get_historic(pair, interval=1_440, since=None):
     }
     
     if since:
+        if isinstance(since, str):
+            since = int(datetime.strptime(since, '%Y-%m-%d').timestamp())
         parameters['since'] = since
     
     ohlc = api.query_public('OHLC', parameters)
