@@ -3,3 +3,7 @@ pyenv3-12/
 configs/*.key
 
 data/
+
+__pycache__/
+
+*.py[cod]
