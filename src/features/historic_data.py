@@ -57,6 +57,10 @@ if __name__ == '__main__':
     pair_btc_usd = 'XXBTZUSD'
     historic_data = get_historic(pair_btc_usd, interval=15, since=None)
     
-    historic_data.to_csv(DATA_RAW_PATH + 'historic_data_15min.csv', index=False)
+    output_file_name = 'data' + '_' + \
+    str(datetime.now().year) + '-' + str(datetime.now().month) + '-' + str(datetime.now().day) + '_' + \
+        str(datetime.now().hour) + ':' + str(datetime.now().minute) + ':' + str(datetime.now().second) + '.csv'
+    
+    historic_data.to_csv(DATA_RAW_PATH + 'historic_btc_15min_interval/' +  output_file_name, index=False)
     
     print('Historic data saved successfully!')
