@@ -2,7 +2,9 @@ pyenv3-12/
 
 configs/*.key
 
-data/
+data/external/
+data/processed/
+data/raw/
 
 __pycache__/
 
