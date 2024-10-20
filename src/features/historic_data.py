@@ -60,17 +60,21 @@ def concatenate_data(folder_path):
     all_data = pd.DataFrame()
 
     for file_name in file_names:
-        if file_name == 'all_data.pkl':
-            continue
+        name_ext = file_name.split('.')[1]
         
-        data = pd.read_csv(folder_path + file_name)
+        if name_ext == 'csv':
+            data = pd.read_csv(folder_path + file_name)
+        elif name_ext == 'pkl':
+            data = pd.read_pickle(folder_path + file_name)
+            
         all_data = pd.concat([all_data, data], axis=0)
         
-    all_data.drop_duplicates(subset='time', keep='first', inplace=True)
     all_data['time'] = pd.to_datetime(all_data['time'])
+    all_data.drop_duplicates(subset='time', keep='first', inplace=True)
     all_data.sort_values(by='time', inplace=True)
     all_data.reset_index(drop=True, inplace=True)
     
+    print(all_data.shape)
     all_data.to_pickle(folder_path + 'all_data.pkl')
 
 
@@ -78,11 +82,7 @@ if __name__ == '__main__':
     pair_btc_usd = 'XXBTZUSD'
     historic_data = get_historic(pair_btc_usd, interval=15, since=None)
     
-    output_file_name = 'data' + '_' + \
-    str(datetime.now().year) + '-' + str(datetime.now().month) + '-' + str(datetime.now().day) + '_' + \
-        str(datetime.now().hour) + ':' + str(datetime.now().minute) + ':' + str(datetime.now().second) + '.csv'
-    
-    historic_data.to_csv(DATA_RAW_PATH + 'historic_btc_15min_interval/' +  output_file_name, index=False)
+    historic_data.to_csv(DATA_RAW_PATH + 'historic_btc_15min_interval/new_data.csv', index=False)
 
     print('Historic data saved successfully!')
     
