@@ -67,8 +67,9 @@ def concatenate_data(folder_path):
         all_data = pd.concat([all_data, data], axis=0)
         
     all_data.drop_duplicates(subset='time', keep='first', inplace=True)
-    all_data.reset_index(drop=True, inplace=True)
     all_data['time'] = pd.to_datetime(all_data['time'])
+    all_data.sort_values(by='time', inplace=True)
+    all_data.reset_index(drop=True, inplace=True)
     
     all_data.to_pickle(folder_path + 'all_data.pkl')
 
