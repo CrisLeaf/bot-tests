@@ -66,6 +66,8 @@ def concatenate_data(folder_path):
             data = pd.read_csv(folder_path + file_name)
         elif name_ext == 'pkl':
             data = pd.read_pickle(folder_path + file_name)
+        else:
+            continue
             
         all_data = pd.concat([all_data, data], axis=0)
         
