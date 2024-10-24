@@ -74,7 +74,7 @@ def plot_last_btc_with_signals(
     position_col: str,
     close_col: str,
 ):    
-    df = df.loc[df.shape[0] - 24*4*30: ]
+    df = df[-24*4*30: ]
     
     fig = go.Figure()
 
