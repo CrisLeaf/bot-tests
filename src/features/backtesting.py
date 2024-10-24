@@ -67,3 +67,60 @@ def get_profit_list(
         profits_list.append(total_profit - investment_per_round)
     
     return profits_list
+
+def plot_last_btc_with_signals(
+    df: pd.DataFrame,
+    time_col: str,
+    position_col: str,
+    close_col: str,
+):    
+    df = df.loc[df.shape[0] - 24*4*30: ]
+    
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(x=df[time_col], y=df[close_col], mode='lines', name='Close Price'))
+
+    fig.add_trace(go.Scatter(x=df[time_col], y=df['SMA50'], mode='lines', name='SMA50'))
+    fig.add_trace(go.Scatter(x=df[time_col], y=df['SMA200'], mode='lines', name='SMA200'))
+
+    fig.add_trace(go.Scatter(
+        x=df[df[position_col] == 1][time_col], 
+        y=df['SMA50'][df[position_col] == 1], 
+        mode='markers', name='Buy Signal', 
+        marker=dict(color='green', size=20, symbol='triangle-up')
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=df[df[position_col] == -1][time_col], 
+        y=df['SMA50'][df[position_col] == -1], 
+        mode='markers', name='Sell Signal', 
+        marker=dict(color='red', size=20, symbol='triangle-down')
+    ))
+
+    fig.update_layout(
+        width=1200,
+        height=600,
+        xaxis_title='Date',
+        yaxis_title='Price',
+        plot_bgcolor='rgb(40, 40, 40, 100)',
+        paper_bgcolor='rgb(40, 40, 40, 100)',
+        font=dict(color='rgb(200, 200, 200, 100)'),
+        xaxis=dict(
+            showline=True,
+            linecolor='rgb(200, 200, 200, 100)',
+            linewidth=2,
+            gridcolor='rgb(200, 200, 200, 100)',
+            zerolinecolor='rgb(200, 200, 200, 100)'
+        ),
+        yaxis=dict(
+            showline=True,
+            linecolor='rgb(200, 200, 200, 100)',
+            linewidth=2,
+            gridcolor='rgb(200, 200, 200, 100)',
+            zerolinecolor='rgb(200, 200, 200, 100)'
+        )
+    )
+
+    fig.update_layout(xaxis_rangeslider_visible=False)
+    
+    return fig
