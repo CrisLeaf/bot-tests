@@ -52,15 +52,15 @@ def plot_last_btc_with_SMA(
             showline=True,
             linecolor='rgb(200, 200, 200, 100)',
             linewidth=2,
-            gridcolor='rgb(200, 200, 200, 100)',
-            zerolinecolor='rgb(200, 200, 200, 100)'
+            gridcolor='rgb(100, 100, 100, 100)',
+            zerolinecolor='rgb(80, 80, 80, 100)'
         ),
         yaxis=dict(
             showline=True,
             linecolor='rgb(200, 200, 200, 100)',
             linewidth=2,
-            gridcolor='rgb(200, 200, 200, 100)',
-            zerolinecolor='rgb(200, 200, 200, 100)'
+            gridcolor='rgb(100, 100, 100, 100)',
+            zerolinecolor='rgb(80, 80, 80, 100)'
         )
     )
 
@@ -115,15 +115,15 @@ def plot_last_btc_with_BB(
             showline=True,
             linecolor='rgb(200, 200, 200, 100)',
             linewidth=2,
-            gridcolor='rgb(200, 200, 200, 100)',
-            zerolinecolor='rgb(200, 200, 200, 100)'
+            gridcolor='rgb(100, 100, 100, 100)',
+            zerolinecolor='rgb(80, 80, 80, 100)'
         ),
         yaxis=dict(
             showline=True,
             linecolor='rgb(200, 200, 200, 100)',
             linewidth=2,
-            gridcolor='rgb(200, 200, 200, 100)',
-            zerolinecolor='rgb(200, 200, 200, 100)'
+            gridcolor='rgb(100, 100, 100, 100)',
+            zerolinecolor='rgb(80, 80, 80, 100)'
         )
     )
 
