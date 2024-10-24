@@ -68,7 +68,7 @@ def get_profit_list(
     
     return profits_list
 
-def plot_last_btc_with_signals(
+def plot_last_btc_with_SMA(
     df: pd.DataFrame,
     time_col: str,
     position_col: str,
