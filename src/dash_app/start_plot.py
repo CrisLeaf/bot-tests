@@ -25,7 +25,7 @@ def create_start_dash_app(requests_pathname_prefix: str = None) -> dash.Dash:
                 style={'width': '50%', 'height': '50vh'},
                 config={'displayModeBar': False},
             ),
-            dcc.Interval(id='interval-component', interval=0.5*1000, n_intervals=0),
+            dcc.Interval(id='interval-component', interval=0.25*1000, n_intervals=0),
             dcc.Store(id='data-store', data=initial_data.to_dict('records'))
         ]
     )
@@ -42,7 +42,7 @@ def create_start_dash_app(requests_pathname_prefix: str = None) -> dash.Dash:
         if len(df) >= 25:
             df = df.iloc[0:0].copy()
         
-        random_number = np.random.uniform(-1, 1) + len(df) / 8
+        random_number = np.random.uniform(-1, 1) + len(df) / 5
         
         new_point = pd.DataFrame({
             'x': [len(df)],
@@ -111,7 +111,7 @@ def generate_figure(df, x_right_range):
             zeroline=True,
             zerolinecolor='#1a1a18',
             zerolinewidth=2,
-            range=[-1.1, 4.2]
+            range=[-1.1, 6.1]
         ),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
